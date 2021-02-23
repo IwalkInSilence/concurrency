@@ -13,7 +13,7 @@ public class ClassImplementRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; counter.getCount() <= MAX_COUNTER; i++) {
+        while (counter.getCount() <= MAX_COUNTER) {
             counter.increment();
             LOGGER.info(Thread.currentThread().getName() + " value = " + counter.getCount());
         }
