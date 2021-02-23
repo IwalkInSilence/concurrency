@@ -2,8 +2,9 @@ package concurrency;
 
 public class Main {
     public static void main(String[] args) {
-        ClassExtendThread classExtendThread = new ClassExtendThread();
-        ClassImplementRunnable classImplementRunnable = new ClassImplementRunnable();
+        Counter counter = new Counter();
+        ClassExtendThread classExtendThread = new ClassExtendThread(counter);
+        ClassImplementRunnable classImplementRunnable = new ClassImplementRunnable(counter);
         classExtendThread.start();
         new Thread(classImplementRunnable).start();
     }

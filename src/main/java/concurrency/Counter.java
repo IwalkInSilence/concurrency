@@ -1,13 +1,13 @@
 package concurrency;
 
 public class Counter {
-    private static int count;
+    private int count;
 
-    public static int getCount() {
+    public int getCount() {
         return count;
     }
 
-    public static void setCount(int count) {
-        Counter.count = count;
+    public void increment() {
+        this.count++;
     }
 }
