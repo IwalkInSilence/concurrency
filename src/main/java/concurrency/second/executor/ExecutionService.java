@@ -2,9 +2,12 @@ package concurrency.second.executor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.apache.commons.collections4.ListUtils;
 
 public class ExecutionService {
@@ -21,19 +24,19 @@ public class ExecutionService {
 
     public Integer execute(List<Integer> list) {
         List<List<Integer>> partition = ListUtils.partition(list, list.size() / THEADS);
-        List<SumCalculatorCallable> callableList = new ArrayList<>();
+        List<Callable<Integer>> tasks = new ArrayList<>();
         for (List<Integer> sublist: partition) {
-            callableList.add(new SumCalculatorCallable(sublist));
+            tasks.add(new SumCalculatorCallable(sublist));
         }
         ExecutorService executorService = Executors.newFixedThreadPool(THEADS);
         int result = 0;
         try {
-            executorService.invokeAll(callableList);
-            for (SumCalculatorCallable thread: callableList) {
-                result += executorService.submit(thread).get();
+            List<Future<Integer>> futures = executorService.invokeAll(tasks);
+            for (Future<Integer> future: futures) {
+                result += future.get();
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+           throw new RuntimeException("ExecutionService don't work correct", e);
         }
         executorService.shutdownNow();
         return result;
