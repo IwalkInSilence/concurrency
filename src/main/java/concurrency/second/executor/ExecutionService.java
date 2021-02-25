@@ -7,7 +7,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
 import org.apache.commons.collections4.ListUtils;
 
 public class ExecutionService {
@@ -36,7 +35,7 @@ public class ExecutionService {
                 result += future.get();
             }
         } catch (InterruptedException | ExecutionException e) {
-           throw new RuntimeException("ExecutionService don't work correct", e);
+            throw new RuntimeException("ExecutionService don't work correct", e);
         }
         executorService.shutdownNow();
         return result;
