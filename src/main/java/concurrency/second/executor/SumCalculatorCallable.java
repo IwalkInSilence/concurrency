@@ -3,10 +3,10 @@ package concurrency.second.executor;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class ClassImplementsCallable implements Callable<Integer> {
+public class SumCalculatorCallable implements Callable<Integer> {
     private List<Integer> list;
 
-    public ClassImplementsCallable(List<Integer> list) {
+    public SumCalculatorCallable(List<Integer> list) {
         this.list = list;
     }
 
